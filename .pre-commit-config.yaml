@@ -1,0 +1,43 @@
+default_language_version:
+  python: python3.9
+
+default_stages: [commit, push]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-json
+      - id: check-toml
+      - id: check-xml
+      - id: check-yaml
+      - id: fix-encoding-pragma
+      - id: mixed-line-ending
+      - id: name-tests-test
+        args: ["--pytest-test-first"]
+      # Un-comment defer commiting to main/master branch
+      #- id: no-commit-to-branch
+      - id: pretty-format-json
+        args: ["--autofix"]
+      - id: requirements-txt-fixer
+
+  - repo: https://github.com/PyCQA/isort.git
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        args: ["--settings-file", "pyproject.toml"]
+
+  - repo: https://github.com/psf/black
+    rev: 22.6.0
+    hooks:
+      - id: black
+        args: ["--config", "pyproject.toml"]
+
+  - repo: https://github.com/PyCQA/flake8.git
+    rev: 5.0.4
+    hooks:
+      - id: flake8
+        args: ["--config", "pyproject.toml"]
